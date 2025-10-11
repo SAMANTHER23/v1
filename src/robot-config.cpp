@@ -46,7 +46,7 @@ void toggleHornPosition() {
     chassis.stop(coast);
   } else {
     hornMotor.setVelocity(100, percent);
-    hornMotor.spinFor(reverse, 300, degrees, false);
+    hornMotor.spinFor(reverse, 300, degrees);
     hornMotor.stop(coast);
     hornMotor.stop(hold);
     chassis.stop(hold);
@@ -72,13 +72,17 @@ void stopRollers() {
 
 void scoreLong() {
   rollerBottom.spin(reverse, 12, volt);
-  rollerTop.spin(forward, 12, volt);
+  rollerTop.spin(reverse, 12, volt);
   chassis.stop(hold);
 }
 
 void scoreMiddle() {
+  controller1.rumble("..");
+  chassis.driveWithVoltage(8, 8);
+  wait(200, msec);
+  chassis.stop(hold);
   rollerBottom.spin(reverse, 12, volt);
-  rollerTop.spin(forward, 6, volt);
+  rollerTop.spin(reverse, 5, volt);
   chassis.stop(hold);
 }
 

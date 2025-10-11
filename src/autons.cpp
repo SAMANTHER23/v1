@@ -1,5 +1,5 @@
 #include "vex.h"
-int currentAutonSelection = 0;        // Current auton selection
+int currentAutonSelection = 1;        // Current auton selection
 int autonTestStep = 0;                // Current step in auton test mode
 
 
@@ -27,7 +27,7 @@ void autonLeft() {
   chassis.turnToHeading(180);
   chassis.driveDistance(-12);
   scoreLong();
-  wait(1000, msec);
+  wait(1500, msec);
   stopRollers();
 
   //horn push
@@ -43,17 +43,19 @@ void autonRight() {
   wait(50, msec);
 
   //grab three balls
-  chassis.driveDistance(-6);
+  chassis.driveDistance(-5.5);
   chassis.turnToHeading(90);
+  
+
   inTake();
   chassis.driveDistance(20, 4);
-  chassis.turnToHeading(130, 6);
+  chassis.turnToHeading(130);
   stopRollers();
 
   //Score long goal
-  chassis.driveDistance(29, 6);
-  chassis.turnToHeading(180, 6);
-  chassis.driveDistance(-26, 6);
+  chassis.driveDistance(28);
+  chassis.turnToHeading(180);
+  chassis.driveDistance(-17);
   scoreLong();
   wait(1500, msec);
   stopRollers();
