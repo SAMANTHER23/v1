@@ -32,19 +32,13 @@ void autonLeft() {
 
   //horn push
   toggleHornPosition();
-  chassis.driveDistance(10);
-  chassis.turnToHeading(90);
-  chassis.driveDistance(12);
-  toggleHornPosition();
-  chassis.turnToHeading(180);
-  chassis.driveDistance(-24);
-
+  deScore();
 }
 
 // The second autonomous routine.
 void autonRight() {
   //Score preloaded ball
- chassis.setHeading(0); 
+  chassis.setHeading(0); 
   chassis.driveDistance(30);
   wait(50, msec);
 
@@ -65,14 +59,8 @@ void autonRight() {
   stopRollers();
 
   //horn push
-  chassis.setHeading(180);
   toggleHornPosition();
-  chassis.driveDistance(10);
-  chassis.turnToHeading(90);
-  chassis.driveDistance(12);
-  toggleHornPosition();
-  chassis.turnToHeading(180);
-  chassis.driveDistance(-24);
+  deScore();
 }
 
 // A long autonomous routine, e.g. skill.
@@ -269,7 +257,8 @@ void loadConfigParameters()
               if (strcmp(key, "auton") == 0) {
                   currentAutonSelection = atoi(value_str);
               } else if (strcmp(key, "drive_mode") == 0) {
-                  DRIVE_MODE = atoi(value_str);
+                 // DRIVE_MODE = atoi(value_str);
+                 DRIVE_MODE = DRIVE_MODE;
               }
           }
           
@@ -307,7 +296,7 @@ void pre_auton() {
   motorsSetupSuccess = checkMotors(NUMBER_OF_MOTORS);
   //set the parameters for the chassis
   setChassisDefaults();
-  // load parameters from the SD card
+ // load parameters from the SD card
   loadConfigParameters();
   // Shows the autonomous menu and register the buttons for autonomous testing.
   if(inertialSensorSetupSuccess && motorsSetupSuccess) {

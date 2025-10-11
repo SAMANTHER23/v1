@@ -29,3 +29,5 @@ void  setupButtonMapping();
 void changeDriveMode();
 void setChassisDefaults();
 void usercontrol();
+
+void deScore();

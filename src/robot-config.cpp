@@ -8,17 +8,17 @@ controller controller1 = controller(primary);
 //              Drivetrain definition
 // ------------------------------------------------------------------------
 //If you only have 4  motors (or mecanum drive), assign leftMotor3, rightMotor3 to unused ports.
-motor leftMotor1 = motor(PORT11, ratio18_1, true);//1 for one, 11 for two
-motor leftMotor2 = motor(PORT12, ratio6_1, true);//2 for one, 12 for two
-motor leftMotor3 = motor(PORT13, ratio6_1, true);//11 for one, 16 for two
+motor leftMotor1 = motor(PORT11, ratio18_1, true);
+motor leftMotor2 = motor(PORT12, ratio6_1, true);
+motor leftMotor3 = motor(PORT13, ratio6_1, true);
 
-motor rightMotor1 = motor(PORT1, ratio6_1, false);//4 for one, 1 for two
-motor rightMotor2 = motor(PORT2, ratio6_1, false);//5 for one, 2 for two
-motor rightMotor3 = motor(PORT3, ratio18_1, false);//13 for one, 3 for two
+motor rightMotor1 = motor(PORT1, ratio6_1, false);
+motor rightMotor2 = motor(PORT2, ratio6_1, false);
+motor rightMotor3 = motor(PORT3, ratio18_1, false);
 
 // inertial sensor for auton turning and heading
 // If you do not have an inertial sensor, assign it to an unused port. Ignore the warning at the start of the program.
-inertial inertial1 = inertial(PORT16);//13 for one, 19 for two
+inertial inertial1 = inertial(PORT16);
 
 // 0: double arcade drive, 1: single aracde, 2: tank drive, 3: mecanum drive
 int DRIVE_MODE = 0;
@@ -27,9 +27,9 @@ int DRIVE_MODE = 0;
 // ------------------------------------------------------------------------
 //        Other subsystems: motors, sensors and helper functions definition
 // ------------------------------------------------------------------------
-motor rollerBottom = motor(PORT10, ratio6_1, true);//20 for one, 10 for two
-motor rollerTop = motor(PORT14, ratio6_1, false);//19 for one, 14 for two
-motor hornMotor = motor(PORT8, ratio18_1, true);//19 for one, 14 for two
+motor rollerBottom = motor(PORT10, ratio6_1, true);
+motor rollerTop = motor(PORT14, ratio6_1, false);
+motor hornMotor = motor(PORT8, ratio18_1, true);
 
 
 // total number of motors, including drivetrain
@@ -45,9 +45,10 @@ void toggleHornPosition() {
     hornMotor.stop(brake);
     chassis.stop(coast);
   } else {
-    hornMotor.setVelocity(75, percent);
-    hornMotor.setTimeout(1000, msec);
+    hornMotor.setVelocity(100, percent);
     hornMotor.spinFor(reverse, 300, degrees, false);
+    hornMotor.stop(coast);
+    hornMotor.stop(hold);
     chassis.stop(hold);
   }
 }
@@ -102,7 +103,7 @@ void buttonL1Action() {
 void buttonL2Action() {
   if (controller1.ButtonR2.pressing()) 
   {
-    (scoreMiddle);
+    scoreMiddle();
   }
   else
   {
@@ -130,12 +131,9 @@ void buttonR2Action()
   chassis.stop(coast);
 }
 
-bool macroMode = false;
-void buttonAAction() {
-  if(macroMode || autonTestMode) return;
-  macroMode = true;
+void deScore()
+{
   float currentHeading = chassis.inertialSensor.heading();
-
   if(hornUp) {
     chassis.driveDistance(10, 10, currentHeading, 6);
     chassis.turnToHeading(currentHeading-90);
@@ -147,6 +145,14 @@ void buttonAAction() {
   else {
     chassis.driveDistance(-24, 10, currentHeading, 6);
   }
+}
+
+bool macroMode = false;
+void buttonAAction() {
+  if(macroMode || autonTestMode) return;
+  macroMode = true;
+  deScore();
+
   macroMode = false;
  
 }
