@@ -59,7 +59,7 @@ void inTake() {
 }
 
 void outTake() {
-  rollerBottom.spin(forward, -12, volt);
+  rollerBottom.spin(forward, 12, volt);
   rollerTop.spin(forward, -12, volt);
 }
 
@@ -77,12 +77,8 @@ void scoreLong() {
 }
 
 void scoreMiddle() {
-  controller1.rumble("..");
-  chassis.driveWithVoltage(8, 8);
-  wait(200, msec);
-  chassis.stop(hold);
   rollerBottom.spin(reverse, 12, volt);
-  rollerTop.spin(reverse, 5, volt);
+  rollerTop.spin(reverse, 20, pct);
   chassis.stop(hold);
 }
 
