@@ -40,8 +40,7 @@ void toggleHornPosition() {
   hornUp = !hornUp;
   if (hornUp) {
     hornMotor.spin(forward, 8, volt);
-    wait(100, msec);
-    waitUntil(hornMotor.torque()>0.4);
+    wait(800, msec);
     hornMotor.stop(brake);
     chassis.stop(coast);
   } else {
